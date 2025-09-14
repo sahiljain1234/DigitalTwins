@@ -88,6 +88,21 @@ public class GameManagerScript : MonoBehaviour
         previousSliderValue = currentSliderValue;
     }
 
+    // Public static method to trigger simulation from external scripts
+    public static void TriggerStartSimulationStatic()
+    {
+        // Find the GameManagerScript instance in the scene
+        GameManagerScript gameManager = FindObjectOfType<GameManagerScript>();
+        if (gameManager != null)
+        {
+            gameManager.TriggerStartSimulation();
+        }
+        else
+        {
+            Debug.LogError("GameManagerScript not found in scene! Cannot start simulation.");
+        }
+    }
+
     // Implement the TriggerStartSimulation method
     private void TriggerStartSimulation()
     {

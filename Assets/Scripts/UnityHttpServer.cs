@@ -90,7 +90,9 @@ public class UnityHttpServer : MonoBehaviour
         var request = context.Request;
         var response = context.Response;
         
-        Debug.Log($"Received {request.HttpMethod} request to {request.Url.AbsolutePath}");
+        Debug.Log($"🌐 HTTP REQUEST RECEIVED: {request.HttpMethod} {request.Url.AbsolutePath}");
+        Debug.Log($"🌐 Request from: {request.RemoteEndPoint}");
+        Debug.Log($"🌐 User Agent: {request.UserAgent}");
         
         // Set CORS headers to allow requests from Android app
         response.Headers.Add("Access-Control-Allow-Origin", "*");
@@ -151,13 +153,21 @@ public class UnityHttpServer : MonoBehaviour
     
     private void TriggerMetalDetection()
     {
-        Debug.Log("Triggering metal detection in Unity digital twin...");
+        Debug.Log("🔥 TRIGGERING METAL DETECTION in Unity digital twin...");
         
-        // Call the EventManager to trigger the metal detection event
-        EventManager.StartMove();
+        // Call ButtonListener.Instance.OnButtonClick() as requested
+        if (ButtonListener.Instance != null)
+        {
+            Debug.Log("🔥 ButtonListener.Instance found, calling OnButtonClick()...");
+            ButtonListener.Instance.OnButtonClick();
+        }
+        else
+        {
+            Debug.LogError("❌ ButtonListener.Instance is NULL! Make sure ButtonListener is in the scene and has the singleton pattern working.");
+        }
         
         // You can also trigger other events or perform additional actions here
-        Debug.Log("Metal detection event triggered successfully!");
+        Debug.Log("🔥 Metal detection event triggered successfully!");
     }
     
     void OnGUI()
